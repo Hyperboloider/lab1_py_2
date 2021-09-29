@@ -10,3 +10,21 @@ class BoardPrettifier:
             for cell in crown_replaced:
                 print(f" {cell} ", end="")
             print()
+
+
+class Reader:
+
+
+    def __init__(self, filename: str):
+        self.__filename = filename
+
+    def create_board(self) -> Board:
+        with open(self.__filename) as file:
+            dimension = int(file.readline())
+            queens = [int(x) for x in file.readline().split()]
+
+            board = Board(dimension)
+            for column, row in enumerate(queens):
+                board[row][column] = 1
+
+        return board

@@ -58,3 +58,61 @@ class BoardValidator:
                 return False
 
         return True
+
+    def evaluate(self):
+        count = 0
+
+        for col in range(len(self.__board)):
+            for row in range(len(self.__board)):
+                if self.__board[row][col] == 1:
+                    count += self.__evaluate_queen(row, col)
+        
+        return count
+
+    def __evaluate_queen(self, row, col) -> int:
+        count = 0
+
+        #main
+        current_row = row + 1
+        current_col = col - 1
+        while current_row < len(self.__board) and current_col > -1:
+            if self.__board[current_row][current_col] == 1: 
+                count += 1
+                break
+            current_col -= 1
+            current_row += 1
+        
+        current_row = row - 1
+        current_col = col + 1
+        while current_row > -1 and current_col < len(self.__board):
+            if self.__board[current_row][current_col] == 1: 
+                count += 1
+                break
+            current_col += 1
+            current_row -= 1
+
+        #additional
+        current_row = row - 1
+        current_col = col - 1
+        while current_row > -1 and current_col > -1:
+            if self.__board[current_row][current_col] == 1: 
+                count += 1
+                break
+            current_col -= 1
+            current_row -= 1
+
+        current_row = row + 1
+        current_col = col + 1
+        while current_row < len(self.__board) and current_col < len(self.__board):
+            if self.__board[current_row][current_col] == 1: 
+                count += 1
+                break
+            current_col += 1
+            current_row += 1
+        
+        #horizontally
+        for c in range(len(self.__board)):
+            if self.__board[row][c] == 1 and c != col:
+                count += 1
+        
+        return count / 2
