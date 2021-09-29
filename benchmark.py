@@ -14,7 +14,7 @@ class Benchmark:
         solver = IDSSolver(board) if solve_choice == 0 else RBFSSolver(board)
         BoardPrettifier.prettify(board)
 
-        print("method name:", solver.solve.__doc__)
+        print('method name:', solver.solve.__doc__)
         result = cls.__start_solving(solver)
         print(f'fail: {result.failure}, cutoff: {result.cutoff}, success: {result.success}')
         if result.success:
